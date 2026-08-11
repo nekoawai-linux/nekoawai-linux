@@ -1,5 +1,5 @@
 Name:           nekowall
-Version:        0.2.0
+Version:        0.2.1
 Release:        0%{?dist}
 Summary:        Random art from nekos.moe as the NekoAwai wallpaper
 License:        GPL-3.0-or-later
@@ -7,7 +7,7 @@ Group:          System/GUI/Other
 URL:            https://nekoawai.moe
 BuildArch:      x86_64
 
-Source0:        nekowall-0.2.0.tar.gz
+Source0:        nekowall-0.2.1.tar.gz
 
 BuildRequires:  cmake >= 3.22
 BuildRequires:  gcc-c++
