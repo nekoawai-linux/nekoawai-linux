@@ -43,6 +43,11 @@ Recommends:     vim
 Recommends:     htop
 Recommends:     smartmontools
 
+# A desktop that comes up grey on the first login says nothing about the
+# system it belongs to. nekowall sets one picture at that first login and
+# then leaves the choice alone.
+Requires:       nekowall
+
 # Every session needs a usable fallback font set.
 Requires:       fontconfig
 Requires:       dejavu-fonts

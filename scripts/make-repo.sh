@@ -12,11 +12,14 @@ mkdir -p "$repo" "$installer_repo"
 
 while IFS= read -r -d '' rpm_path; do
 	name=$(rpm -qp --qf '%{NAME}' "$rpm_path")
-	if [ "$name" = nekoawai-install ]; then
-		cp "$rpm_path" "$installer_repo/"
-	else
-		cp "$rpm_path" "$repo/"
-	fi
+	case $name in
+	# Compiled packages leave debuginfo and debugsource behind. Nothing
+	# installs them and the target repository travels on the installation
+	# medium, so they stay out of it.
+	*-debuginfo | *-debugsource) continue ;;
+	nekoawai-install) cp "$rpm_path" "$installer_repo/" ;;
+	*) cp "$rpm_path" "$repo/" ;;
+	esac
 done < <(find "$root/out/rpmbuild/RPMS" -name '*.rpm' -print0)
 
 createrepo_c --quiet "$repo"
