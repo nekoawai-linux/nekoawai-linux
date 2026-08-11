@@ -1,5 +1,5 @@
 Name:           nekoawai-install
-Version:        0.2.0
+Version:        0.3.1
 Release:        0%{?dist}
 Summary:        NekoAwai system installer
 License:        GPL-3.0-or-later
@@ -7,7 +7,7 @@ Group:          System/Management
 URL:            https://nekoawai.moe
 BuildArch:      noarch
 
-Source0:        nekoawai-installer-0.2.0.tar.gz
+Source0:        nekoawai-installer-0.3.1.tar.gz
 
 BuildRequires:  make
 Requires:       /bin/bash
