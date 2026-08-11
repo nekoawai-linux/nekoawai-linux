@@ -1,0 +1,27 @@
+enable NetworkManager.service
+enable systemd-timesyncd.service
+enable getty@.service
+enable firewalld.service
+# Desktop profiles install exactly one display manager. On a minimal system
+# the alias does not exist, so this rule has no effect.
+enable display-manager.service
+# Enabling dbus-broker only creates the dbus.service alias, but without it
+# dbus.socket has no service to activate: the bus never comes up and logind
+# restarts forever.
+enable dbus-broker.service
+
+# Maintenance. Without these the journal grows unbounded, SSDs degrade and
+# btrfs accumulates errors and metadata.
+enable logrotate.timer
+enable fstrim.timer
+enable btrfs-scrub.timer
+enable btrfs-balance.timer
+enable btrfs-trim.timer
+enable btrfsmaintenance-refresh.path
+disable btrfsmaintenance-refresh.service
+
+# Shipped, but silent until someone enables it.
+disable sshd.service
+
+# Anything not listed above stays off in the base system.
+disable *

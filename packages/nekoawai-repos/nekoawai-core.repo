@@ -1,0 +1,8 @@
+[nekoawai-core]
+name=NekoAwai Core
+enabled=1
+autorefresh=1
+gpgcheck=1
+repo_gpgcheck=0
+priority=99
+baseurl=http://download.opensuse.org/tumbleweed/repo/oss/

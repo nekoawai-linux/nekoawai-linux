@@ -1,0 +1,11 @@
+[nekoawai]
+name=NekoAwai
+enabled=1
+autorefresh=0
+# No signing key exists yet, see nekoawai-keyring.
+gpgcheck=0
+# plaindir reads the directory as-is, so an empty one is still a valid
+# repository rather than an error.
+type=plaindir
+priority=90
+baseurl=dir:///var/lib/nekoawai/repo

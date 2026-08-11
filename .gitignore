@@ -1,0 +1,29 @@
+# Build output
+/out/
+/zypper/
+
+# Release archives. The specs consume them as sources, but they are built
+# artifacts of the sibling projects; see packages/*/README.md.
+*.tar.gz
+*.rpm
+
+# Working notes and drafts
+/STATUS.md
+/README.ru.md
+/docs/plans/
+
+# Assistant tooling
+/.claude/
+/.codex/
+/.agents/
+/.cursor/
+/.aider*
+/CLAUDE.md
+/AGENTS.md
+/GEMINI.md
+/.github/copilot-instructions.md
+
+# Editors and desktops
+*~
+*.sw?
+.DS_Store

@@ -1,0 +1,5 @@
+# openSUSE ships `Defaults targetpw`, which makes sudo ask for the password
+# of the user being switched to - root. That turns wheel membership into a
+# formality: anyone who knows the root password does not need sudo anyway.
+Defaults !targetpw
+%wheel ALL=(ALL:ALL) ALL

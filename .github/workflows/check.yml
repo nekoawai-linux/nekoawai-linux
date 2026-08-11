@@ -1,0 +1,55 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: shell syntax, package layout, specs
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Shell syntax
+        run: bash -n scripts/*.sh
+
+      - name: Every package directory holds the spec named after it
+        run: |
+          status=0
+          for dir in packages/*/; do
+            name=$(basename "$dir")
+            if [ ! -f "$dir$name.spec" ]; then
+              echo "missing $dir$name.spec" >&2
+              status=1
+            fi
+          done
+          exit "$status"
+
+      - name: Specs parse
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y rpm
+          . ./nekoawai.conf
+          for spec in packages/*/*.spec; do
+            rpmspec --parse "$spec" \
+              --define "nekoawai_version $NEKO_VERSION" \
+              --define "dist $NEKO_DISTTAG" > /dev/null
+          done
+
+      - name: The installer never reaches the target repository
+        run: |
+          if grep -rn 'nekoawai-install' packages/patterns-nekoawai-base/; then
+            echo "the installer must stay out of the base pattern" >&2
+            exit 1
+          fi
