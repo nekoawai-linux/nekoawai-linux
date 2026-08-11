@@ -18,22 +18,33 @@ Requires:       patterns-nekoawai-desktop-base
 Requires:       hyprland
 Requires:       xdg-desktop-portal-hyprland
 Requires:       xdg-desktop-portal-gtk
-Requires:       polkit-gnome
+# SDDM greets on Wayland here, so the profile needs no X server.
 Requires:       sddm-qt6
 
-Recommends:     kitty
-Recommends:     rofi-wayland
-Recommends:     mako
+# What archinstall installs with the Hyprland profile: a bare compositor has
+# no notifications, terminal, launcher, file manager or screenshot tool, and
+# no way to ask for a password.
+Requires:       dunst
+Requires:       kitty
+Requires:       uwsm
+Requires:       wofi
+Requires:       dolphin
+Requires:       polkit-kde-agent-6
+Requires:       grim
+Requires:       slurp
+# Qt applications default to the X11 backend when the Wayland plugin is
+# missing, which then needs Xwayland for anything Qt.
+Requires:       libqt5-qtwayland
+Requires:       qt6-wayland
+
 Recommends:     waybar
-Recommends:     grim
-Recommends:     slurp
 Recommends:     hyprpaper
 Recommends:     hyprpicker
-Recommends:     thunar
 Recommends:     NetworkManager-applet
 
 %description
 A Hyprland session with SDDM and native screen-cast and screenshot portals.
+The tool selection follows the archinstall Hyprland profile.
 
 %build
 

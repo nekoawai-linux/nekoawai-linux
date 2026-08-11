@@ -15,6 +15,9 @@ Provides:       pattern-category() = Graphical%%20Environments
 Provides:       pattern-order() = 1110
 
 Requires:       patterns-nekoawai-desktop-base
+# The session is Wayland, but LightDM's greeter is an X11 program: without a
+# server the machine boots into a display manager that cannot draw.
+Requires:       patterns-nekoawai-x11
 Requires:       niri
 Requires:       xwayland-satellite
 Requires:       xdg-desktop-portal-gnome
@@ -25,18 +28,23 @@ Requires:       lightdm
 Requires:       lightdm-gtk-greeter
 Requires:       lightdm-gtk-greeter-branding-upstream
 
-Recommends:     alacritty
-Recommends:     fuzzel
-Recommends:     mako
-Recommends:     waybar
-Recommends:     swaybg
-Recommends:     swayidle
-Recommends:     swaylock
+# The tools archinstall installs with the Niri profile. A scrolling
+# compositor ships no terminal, launcher or lock screen of its own, so these
+# are the session, not extras.
+Requires:       alacritty
+Requires:       fuzzel
+Requires:       mako
+Requires:       waybar
+Requires:       swaybg
+Requires:       swayidle
+Requires:       swaylock
+
 Recommends:     NetworkManager-applet
 
 %description
 A usable Niri session with LightDM and the portal backends selected by
-Niri's upstream portal configuration.
+Niri's upstream portal configuration. The tool selection follows the
+archinstall Niri profile.
 
 %build
 

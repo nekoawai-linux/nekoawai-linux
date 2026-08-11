@@ -66,6 +66,7 @@ so both packages are skipped until you produce them; see
 | `nekoawai-defaults` | defaults of system services |
 | `nekoawai-install` | installer |
 | `patterns-nekoawai-base` | the contents of the base |
+| `patterns-nekoawai-x11` | the Xorg server, for the profiles that need one |
 
 `out/repo` is the target-system repository; the Live-only installer is routed
 to `out/installer-repo`.
@@ -102,6 +103,19 @@ There are patterns for Niri, Hyprland, GNOME, Plasma and Xfce, and the
 installer offers all five. Only Xfce has been installed and started end to
 end so far. The rest are composed but unproven, and proving them is the kind
 of work that needs more than one person.
+
+What goes into a desktop profile follows archinstall's profile of the same
+name, package for package, translated to the openSUSE names. archinstall has
+had years of reports about what a session is missing on a machine that was
+minimal an hour ago, and there is nothing to gain from making those
+discoveries a second time. Where openSUSE ships no equivalent -- `xarchiver`,
+for one -- the nearest package that does the job takes its place, and the spec
+says so.
+
+`patterns-nekoawai-x11` carries the Xorg server for the profiles that need
+one. Nothing else pulls it in: `lightdm` requires only the `xdm`
+configuration package, so a profile with an X11 greeter that does not name the
+server boots into a display manager that cannot draw.
 
 Applications are chosen for a small system that explains itself: the base is
 a working CLI machine with networking, firewall and manual pages before any

@@ -32,6 +32,16 @@ Requires:       xdg-user-dirs
 Requires:       xdg-utils
 Requires:       desktop-file-utils
 Requires:       shared-mime-info
+# Trash, removable media and network shares in every file manager. Without
+# gvfs a deleted file is a deleted file, with no trash to take it back from.
+Requires:       gvfs
+Recommends:     gvfs-backends
+
+# What archinstall puts on every desktop regardless of the profile. The base
+# already carries nano, wget and the ssh client.
+Recommends:     vim
+Recommends:     htop
+Recommends:     smartmontools
 
 # Every session needs a usable fallback font set.
 Requires:       fontconfig
