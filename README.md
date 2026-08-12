@@ -2,12 +2,16 @@
 
 # NekoAwai
 
+=^..^=
+
 ![Release](https://img.shields.io/github/v/release/nekoawai-linux/nekoawai-linux?include_prereleases&label=NekoAwai%20Release&style=for-the-badge)
 ![Stars](https://img.shields.io/github/stars/nekoawai-linux/nekoawai-linux?style=for-the-badge&color=%23daaa3f)
 ![License](https://img.shields.io/github/license/nekoawai-linux/nekoawai-linux?color=green&style=for-the-badge)
 [![Website](https://img.shields.io/badge/Website-nekoawai.moe-%23e32b6b?style=for-the-badge)](https://nekoawai.moe)
 
 **A small, comfy Linux on the rpm, libzypp and zypper stack, with systemd and systemd-boot.**
+
+Made by one person who wanted a machine that feels like somebody lives in it.
 
 </div>
 
@@ -37,6 +41,23 @@ The swap works because openSUSE keeps its identity in separate packages:
 specific package, and `distribution-release` and `product()` come from the
 release package. `nekoawai-systemd-presets` and `nekoawai-release` take those
 slots.
+
+## The five repositories
+
+The distribution is small enough to read in an evening, and it is kept in
+pieces so that each one can be read on its own:
+
+| | |
+| --- | --- |
+| **nekoawai-linux** | this one: RPM specs, patterns, distribution policy |
+| [nekoawai-installer](https://github.com/nekoawai-linux/nekoawai-installer) | the Live installer, from partitions to the bootloader |
+| [nekoawai-iso](https://github.com/nekoawai-linux/nekoawai-iso) | the recipe for the bootable Live image |
+| [nekowall](https://github.com/nekoawai-linux/nekowall) | the wallpaper picker every desktop profile carries |
+| [nekofetch](https://github.com/nekoawai-linux/nekofetch) | the system summary a headless machine is asked for |
+
+The last two are ordinary programs with their own versions and their own
+release archives. The installer offers them by name and will happily leave
+them out.
 
 ## Build
 
