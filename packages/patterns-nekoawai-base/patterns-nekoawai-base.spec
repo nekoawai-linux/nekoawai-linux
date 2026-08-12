@@ -141,7 +141,12 @@ Requires:       nekoawai-setup
 Requires:       nekoawai-repos
 Requires:       nekoawai-systemd-presets
 Requires:       nekoawai-defaults
-Requires:       nekofetch
+# Everything above is the system's own identity and is not up for discussion.
+# nekofetch is a program that prints a summary: the installer offers it on
+# its NekoAwai screen, and a screen that offers a choice must be able to keep
+# to it. The installer installs it by name, so the recommendation only
+# matters where the base is put down without one.
+Recommends:     nekofetch
 
 %description
 The NekoAwai base system: boot, userspace, systemd, the package stack,

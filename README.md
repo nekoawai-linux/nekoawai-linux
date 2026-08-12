@@ -60,6 +60,7 @@ so both packages are skipped until you produce them; see
 | `nekoawai-filesystem` | directories belonging to the base |
 | `nekoawai-setup` | accounts and login environment |
 | `nekofetch` | independently released system information command |
+| `nekowall` | independently released wallpaper picker, on the desktops |
 | `nekoawai-repos` | repositories of the installed system |
 | `nekoawai-keyring` | repository signing keys |
 | `nekoawai-systemd-presets` | which units get enabled |
@@ -81,6 +82,13 @@ installer installs (`zypper install patterns-nekoawai-base`, aka `@base`).
 ESP, an ext4 or btrfs root, optional LUKS2, Minimal or one desktop profile,
 users, NetworkManager, swap, additional packages, dracut and systemd-boot. It
 lives in [nekoawai-installer](https://github.com/nekoawai-linux/nekoawai-installer).
+
+Its package screen also offers the packages NekoAwai writes itself --
+`nekowall` on a desktop, `nekofetch` on any system -- ticked by default and
+each one refusable. That is why the patterns recommend them rather than
+require them: the installer names the ones that were kept and locks the ones
+that were not for the length of the transaction, so the answer given on the
+screen is the one the finished system has.
 
 The bootloader is driven by `sdbootutil`: the installer writes
 `/etc/kernel/cmdline` and lets it lay out the ESP. The kernel package's

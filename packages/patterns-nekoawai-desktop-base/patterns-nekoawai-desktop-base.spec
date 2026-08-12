@@ -46,7 +46,12 @@ Recommends:     smartmontools
 # A desktop that comes up grey on the first login says nothing about the
 # system it belongs to. nekowall sets one picture at that first login and
 # then leaves the choice alone.
-Requires:       nekowall
+#
+# Recommended rather than required: it is one of the packages the installer
+# offers on its NekoAwai screen, and a screen that offers a choice must be
+# able to keep to it. A recommendation is installed unless something says
+# otherwise, so ticking nothing changes nothing.
+Recommends:     nekowall
 
 # Every session needs a usable fallback font set.
 Requires:       fontconfig
