@@ -165,3 +165,5 @@ English.
 
 Copyright (c) 2026 shizukiq. GPL-3.0-or-later; see `LICENSE`. Packages taken
 from openSUSE Tumbleweed keep their own licenses.
+
+<sub><sub>[donate in TON](https://tonviewer.com/UQAj-bErFKSDkHqy_5RSwkKxmkE3RgATMLFHp-TYX5JN2kHe)</sub></sub>
