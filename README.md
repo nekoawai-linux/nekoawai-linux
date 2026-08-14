@@ -208,6 +208,9 @@ Shell scripts use `set -euo pipefail`, quote their expansions and stay
 focused. Comments explain why, not what. Everything user-facing is written in
 English.
 
+Work that came from somebody else is named in
+[CONTRIBUTORS.md](CONTRIBUTORS.md).
+
 ## License
 
 Copyright (c) 2026 shizukiq. GPL-3.0-or-later; see `LICENSE`. Packages taken
