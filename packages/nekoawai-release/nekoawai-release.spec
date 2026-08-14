@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.1}
+%{!?nekoawai_version:%global nekoawai_version 0.0.2}
 
 Name:           nekoawai-release
 Version:        %{nekoawai_version}
@@ -28,7 +28,7 @@ the product record for libzypp.
 %install
 mkdir -p %{buildroot}%{_prefix}/lib %{buildroot}%{_sysconfdir}/products.d
 
-# ID_LIKE: the binary base of 0.0.1 comes from openSUSE Tumbleweed and
+# ID_LIKE: the binary base of 0.0.2 comes from openSUSE Tumbleweed and
 # third-party scripts should behave accordingly. Goes away together with the
 # move to in-house builds.
 cat > %{buildroot}%{_prefix}/lib/os-release <<'EOF'

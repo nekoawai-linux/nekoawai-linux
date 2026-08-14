@@ -17,7 +17,7 @@ Made by one person who wanted a machine that feels like somebody lives in it.
 
 ## Is it safe to use?
 
-Not yet. NekoAwai 0.0.1 partitions, installs and boots to a login prompt, and
+Not yet. NekoAwai 0.0.2 partitions, installs and boots to a login prompt, and
 that is the whole of what has been verified, in virtual machines. There is no
 signing key, no update channel of its own, and no installation on real
 hardware behind it. Keep it in a virtual machine.
@@ -25,7 +25,7 @@ hardware behind it. Keep it in a virtual machine.
 If you want a distribution to keep your data on, install openSUSE Tumbleweed.
 NekoAwai is built from it and gives you nothing it does not.
 
-## What 0.0.1 is
+## What 0.0.2 is
 
 A derivative, not an independent build. The binary base comes from openSUSE
 Tumbleweed and is still stamped `Vendor: openSUSE`: kernel, glibc, systemd,

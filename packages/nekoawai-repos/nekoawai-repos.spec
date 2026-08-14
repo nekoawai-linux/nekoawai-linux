@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.1}
+%{!?nekoawai_version:%global nekoawai_version 0.0.2}
 
 Name:           nekoawai-repos
 Version:        %{nekoawai_version}
@@ -20,7 +20,7 @@ Requires:       nekoawai-filesystem
 %description
 The repositories the system gets its packages from.
 
-In 0.0.1 core and extra point at the openSUSE Tumbleweed binary base, since
+In 0.0.2 core and extra point at the openSUSE Tumbleweed binary base, since
 there is no in-house build yet. When there is, only baseurl changes: the
 repository names and everything referring to them stay as they are.
 

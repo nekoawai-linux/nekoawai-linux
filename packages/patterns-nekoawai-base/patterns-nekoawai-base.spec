@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.1}
+%{!?nekoawai_version:%global nekoawai_version 0.0.2}
 
 Name:           patterns-nekoawai-base
 Version:        %{nekoawai_version}
@@ -150,7 +150,7 @@ Recommends:     nekofetch
 
 %description
 The NekoAwai base system: boot, userspace, systemd, the package stack,
-networking and storage. The agreed contents of the 0.0.1 base.
+networking and storage. The agreed contents of the 0.0.2 base.
 
 %build
 

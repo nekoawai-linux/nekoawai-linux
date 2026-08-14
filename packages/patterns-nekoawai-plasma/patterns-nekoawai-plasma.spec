@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.1}
+%{!?nekoawai_version:%global nekoawai_version 0.0.2}
 
 Name:           patterns-nekoawai-plasma
 Version:        %{nekoawai_version}

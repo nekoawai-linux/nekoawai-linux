@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.1}
+%{!?nekoawai_version:%global nekoawai_version 0.0.2}
 
 Name:           nekoawai-setup
 Version:        %{nekoawai_version}
@@ -12,7 +12,7 @@ BuildArch:      noarch
 Source0:        nekoawai.sh
 Source1:        50-nekoawai
 
-# 0.0.1 builds on top of aaa_base rather than replacing it: passwd, group,
+# 0.0.2 builds on top of aaa_base rather than replacing it: passwd, group,
 # shells and profile still belong upstream. Our own versions arrive when
 # aaa_base goes.
 Requires:       aaa_base

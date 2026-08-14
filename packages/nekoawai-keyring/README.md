@@ -5,7 +5,7 @@ is present in this directory:
 
     packages/nekoawai-keyring/nekoawai.asc
 
-No key exists for 0.0.1: there is no in-house build yet, and core and extra
+No key exists for 0.0.2: there is no in-house build yet, and core and extra
 point upstream and are verified with the upstream key.
 `scripts/build-packages.sh` skips the package while the file is missing.
 
