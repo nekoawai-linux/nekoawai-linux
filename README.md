@@ -209,7 +209,7 @@ focused. Comments explain why, not what. Everything user-facing is written in
 English.
 
 Work that came from somebody else is named in
-[CONTRIBUTORS.md](CONTRIBUTORS.md).
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
