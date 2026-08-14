@@ -155,6 +155,48 @@ Applications are chosen for a small system that explains itself: the base is
 a working CLI machine with networking, firewall and manual pages before any
 desktop is added.
 
+## What it looks like
+
+openSUSE keeps its appearance in packages of its own and asks for them by
+symbol -- `gtk3-branding`, `plymouth-branding`, `wallpaper-branding` -- which
+is the same door `nekoawai-systemd-presets` and `nekoawai-release` walked
+through to make this a distribution at all. A NekoAwai desktop came up in
+openSUSE's colours because nothing here had walked through it yet.
+
+Some of those slots can be held and some cannot, and the difference is one
+word in the requirement. `plymouth` asks for `plymouth-branding` and names no
+version; nothing versions `gtk3-branding` either. But `desktop-data-openSUSE`
+asks for `wallpaper-branding = 84.87.20240405`, `xfce4-settings` for
+`xfce4-settings-branding = 4.20.5`, and `lightdm-gtk-greeter` for
+`lightdm-gtk-greeter-branding >= 2.0.8`. A package of ours sitting in one of
+those stops satisfying it the first time the upstream package moves, and
+`zypper dup` repairs that the only way it can: openSUSE's branding back,
+ours removed. The desktop would return to somebody else's colours on an
+ordinary update, quietly. That is defect 16 in different clothes, and it is
+not worth a settings file.
+
+So three slots are held -- `gtk3-branding`, `gtk4-branding`,
+`plymouth-branding` -- and everything else is done beside them, in places
+nothing else is looking:
+
+| | |
+| --- | --- |
+| the Xfce theme | the account's own copy, laid down in `/etc/skel` |
+| the login screen | a drop-in in `lightdm-gtk-greeter.conf.d` |
+| the GNOME background | a gsettings override that sorts after openSUSE's |
+| the text console | `setvtrgb` from a unit, before `getty.target` |
+
+One palette runs through all of it. The sixteen colours of the text console
+are the sixteen of the terminal inside a session, the login screen stands in
+front of the same picture the desktop has, and the background is drawn from
+the palette rather than shipped as art: `make-wallpaper.py` is the picture,
+and the PNG is a build artifact like any other. Red, green and yellow keep
+their meanings everywhere, because a log that has gone red has to look it.
+
+None of it has been started in a virtual machine. What has been checked is
+that all five profiles and the base still resolve against the live
+repositories, and that is a different sentence.
+
 ## Contributing
 
 The repository packages a distribution; it does not host application code.
