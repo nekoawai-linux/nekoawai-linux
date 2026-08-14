@@ -43,6 +43,12 @@ Requires:       pavucontrol
 Requires:       file-roller
 Requires:       xfce4-notifyd
 
+# What the session looks like. Xfce keeps its appearance in branding slots
+# that are asked for by the exact version of the package they belong to, so
+# this takes none of them: the theme reaches each account from /etc/skel and
+# the terminal colours from /etc/xdg, and neither can go stale on an update.
+Requires:       nekoawai-branding-xfce
+
 Requires:       polkit-gnome
 Requires:       lightdm
 Requires:       lightdm-gtk-greeter

@@ -84,6 +84,7 @@ so both packages are skipped until you produce them; see
 | `nekowall` | independently released wallpaper picker, on the desktops |
 | `nekoawai-wallpapers` | the background a desktop comes up with |
 | `nekoawai-branding-gtk` | the look of GTK applications |
+| `nekoawai-branding-xfce` | the look of the Xfce session |
 | `nekoawai-repos` | repositories of the installed system |
 | `nekoawai-keyring` | repository signing keys |
 | `nekoawai-systemd-presets` | which units get enabled |
