@@ -1,0 +1,10 @@
+# The one line of the GNOME session that decides whether the desktop is dark.
+#
+# settings.ini is not enough there: under GNOME the settings daemon pushes the
+# theme out of gsettings, and a libadwaita application follows the colour
+# scheme and nothing else. The theme name itself is left at the GNOME default
+# on purpose -- prefer-dark is the supported way to ask, and naming
+# Adwaita-dark instead would put GNOME's accent colours out of step.
+
+[org.gnome.desktop.interface]
+color-scheme = 'prefer-dark'

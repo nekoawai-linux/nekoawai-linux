@@ -43,6 +43,13 @@ Recommends:     vim
 Recommends:     htop
 Recommends:     smartmontools
 
+# What the desktop looks like before anyone has chosen anything. Both are
+# branding in the openSUSE sense -- packages that take a slot the desktop
+# asks for by symbol -- and without them a NekoAwai desktop comes up in
+# openSUSE's colours, under openSUSE's picture.
+Requires:       nekoawai-branding-gtk
+Requires:       nekoawai-wallpapers
+
 # A desktop that comes up grey on the first login says nothing about the
 # system it belongs to. nekowall sets one picture at that first login and
 # then leaves the choice alone.
