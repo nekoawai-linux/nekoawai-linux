@@ -53,6 +53,10 @@ Requires:       polkit-gnome
 Requires:       lightdm
 Requires:       lightdm-gtk-greeter
 Requires:       lightdm-gtk-greeter-branding-upstream
+# The look of that screen, as a drop-in beside the file above rather
+# than in place of it: the branding slot is asked for by the greeter's
+# own version, and no package of ours can promise that number for long.
+Requires:       nekoawai-branding-lightdm
 Requires:       xdg-desktop-portal-gtk
 
 # The xfce4-goodies group. Weak dependencies rather than hard ones: a plugin

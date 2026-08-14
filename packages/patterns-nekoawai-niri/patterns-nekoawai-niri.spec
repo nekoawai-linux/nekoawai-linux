@@ -27,6 +27,10 @@ Requires:       polkit-gnome
 Requires:       lightdm
 Requires:       lightdm-gtk-greeter
 Requires:       lightdm-gtk-greeter-branding-upstream
+# The look of that screen, as a drop-in beside the file above rather
+# than in place of it: the branding slot is asked for by the greeter's
+# own version, and no package of ours can promise that number for long.
+Requires:       nekoawai-branding-lightdm
 
 # The tools archinstall installs with the Niri profile. A scrolling
 # compositor ships no terminal, launcher or lock screen of its own, so these
