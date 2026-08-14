@@ -90,7 +90,7 @@ so both packages are skipped until you produce them; see
 | `nekoawai-repos` | repositories of the installed system |
 | `nekoawai-keyring` | repository signing keys |
 | `nekoawai-systemd-presets` | which units get enabled |
-| `nekoawai-defaults` | defaults of system services |
+| `nekoawai-defaults` | defaults of system services, and the console palette |
 | `nekoawai-install` | installer |
 | `patterns-nekoawai-base` | the contents of the base |
 | `patterns-nekoawai-x11` | the Xorg server, for the profiles that need one |

@@ -1,0 +1,19 @@
+[Unit]
+Description=NekoAwai text console colours
+Documentation=man:setvtrgb(8)
+# The palette belongs to the console driver, not to a terminal: one call sets
+# it for every virtual terminal at once, including the ones already open.
+After=systemd-vconsole-setup.service
+Before=getty.target
+ConditionPathExists=/dev/tty0
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+# Ours, and then the administrator's if there is one. The dash is what makes
+# an absent /etc/vtrgb an ordinary state of affairs rather than a failure.
+ExecStart=/usr/bin/setvtrgb /usr/share/nekoawai/vtrgb
+ExecStart=-/usr/bin/setvtrgb /etc/vtrgb
+
+[Install]
+WantedBy=multi-user.target

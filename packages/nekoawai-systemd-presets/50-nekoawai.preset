@@ -1,6 +1,9 @@
 enable NetworkManager.service
 enable systemd-timesyncd.service
 enable getty@.service
+# Runs before getty.target, so the login prompt is already in the palette
+# rather than changing colour under the first person to look at it.
+enable nekoawai-console-colours.service
 enable firewalld.service
 # Desktop profiles install exactly one display manager. On a minimal system
 # the alias does not exist, so this rule has no effect.
