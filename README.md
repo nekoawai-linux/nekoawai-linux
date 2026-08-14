@@ -86,6 +86,7 @@ so both packages are skipped until you produce them; see
 | `nekoawai-branding-gtk` | the look of GTK applications |
 | `nekoawai-branding-xfce` | the look of the Xfce session |
 | `nekoawai-branding-lightdm` | the login screen |
+| `nekoawai-branding-plymouth` | what the boot screen shows, if there is one |
 | `nekoawai-repos` | repositories of the installed system |
 | `nekoawai-keyring` | repository signing keys |
 | `nekoawai-systemd-presets` | which units get enabled |

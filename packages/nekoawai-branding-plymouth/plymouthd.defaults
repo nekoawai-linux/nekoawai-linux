@@ -1,0 +1,20 @@
+# What NekoAwai shows while it is booting: the boot.
+#
+# Theme=details is a decision, not a placeholder, and it is the same one the
+# installer makes -- nothing hidden behind a progress bar. A distribution
+# whose one verified property is that it reaches a login prompt has no
+# business covering the lines that say how far it got.
+#
+# A picture would take artwork NekoAwai does not have, images for the
+# password dialog -- a machine with LUKS is asked for its passphrase on this
+# screen, and a theme with no dialog images asks for it with nothing on
+# screen at all -- and a run in a virtual machine to prove both. Until all
+# three exist, one line is the honest theme.
+#
+# Nothing in NekoAwai installs plymouth. This file is here so that a machine
+# that installs it does not get somebody else's mascot with it.
+
+[Daemon]
+Theme=details
+ShowDelay=0
+DeviceTimeout=8
