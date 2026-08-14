@@ -1,0 +1,22 @@
+# The background of a GNOME session, which is not chosen by the wallpaper
+# package but by a setting pointing at one.
+#
+# openSUSE writes that setting in gio-branding-openSUSE and points it at its
+# own picture. Overrides are read in name order, so 30_ has the last word
+# over 20_openSUSE-branding, and neither package has to be removed for it.
+#
+# There is one picture and it is dark. Until the day there are two, the light
+# session gets the same one rather than a hole.
+
+[org.gnome.desktop.background]
+picture-uri = 'file:///usr/share/wallpapers/NekoAwai/contents/images/default.png'
+picture-uri-dark = 'file:///usr/share/wallpapers/NekoAwai/contents/images/default.png'
+picture-options = 'zoom'
+primary-color = '#0d0b12'
+secondary-color = '#15121c'
+
+[org.gnome.desktop.screensaver]
+picture-uri = 'file:///usr/share/wallpapers/NekoAwai/contents/images/default.png'
+picture-options = 'zoom'
+primary-color = '#0d0b12'
+secondary-color = '#15121c'

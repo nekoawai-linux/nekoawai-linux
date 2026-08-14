@@ -1,0 +1,12 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "shizukiq"
+            }
+        ],
+        "Id": "NekoAwai",
+        "License": "GPL-3.0-or-later",
+        "Name": "NekoAwai"
+    }
+}

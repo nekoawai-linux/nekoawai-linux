@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+	<wallpaper deleted="false">
+		<filename>/usr/share/wallpapers/NekoAwai/contents/images/default.png</filename>
+		<filename-dark>/usr/share/wallpapers/NekoAwai/contents/images/default.png</filename-dark>
+		<options>zoom</options>
+		<name>NekoAwai</name>
+		<shade_type>solid</shade_type>
+		<pcolor>#0d0b12ff</pcolor>
+		<scolor>#15121cff</scolor>
+	</wallpaper>
+</wallpapers>
