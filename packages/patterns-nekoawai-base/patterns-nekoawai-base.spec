@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.2}
+%{!?nekoawai_version:%global nekoawai_version 0.0.3}
 
 Name:           patterns-nekoawai-base
 Version:        %{nekoawai_version}
@@ -8,6 +8,7 @@ License:        GPL-3.0-or-later
 Group:          Metapackages
 URL:            https://nekoawai.moe
 BuildArch:      noarch
+Source100:      LICENSE
 
 Provides:       pattern() = base
 Provides:       pattern-visible()
@@ -20,9 +21,17 @@ Conflicts:      patterns-base-base
 
 # --- boot / kernel
 Requires:       kernel-default
-# The target hardware is unknown in advance, so take all firmware rather
-# than the virtual kernel-firmware, which anyone may satisfy tomorrow.
-Requires:       kernel-firmware-all
+# The target hardware is unknown in advance, so take all firmware rather than
+# the virtual kernel-firmware, which anyone may satisfy tomorrow.
+#
+# Recommended rather than required, and it is the one place where that word
+# is about size: the set is the largest single thing in the base, and on a
+# virtual machine -- the only place 0.0.3 has ever run -- not one file of it
+# is ever read. The installer decides: it names the package on real hardware
+# and locks it under a hypervisor, so neither case depends on the solver's
+# mood. A base put down without the installer keeps the firmware, which is
+# the safe way round.
+Recommends:     kernel-firmware-all
 Requires:       systemd-boot
 # All ESP work goes through sdbootutil. It is also the condition by which
 # the kernel package scriptlet decides where to put a new kernel: without it
@@ -100,6 +109,12 @@ Requires:       zram-generator
 Requires:       rpm
 Requires:       libzypp
 Requires:       zypper
+# The keys the base is signed with, in the system rather than fetched at the
+# moment they are needed to check something. nekoawai-core.repo checks both
+# packages and metadata, and a check has nothing to stand on without these.
+# The package also carries the unit that follows openSUSE's key rotations, so
+# the trust survives the base moving underneath it.
+Requires:       openSUSE-build-key
 
 # --- network
 Requires:       NetworkManager
@@ -150,7 +165,10 @@ Recommends:     nekofetch
 
 %description
 The NekoAwai base system: boot, userspace, systemd, the package stack,
-networking and storage. The agreed contents of the 0.0.2 base.
+networking and storage. The agreed contents of the 0.0.3 base.
+
+%prep
+cp -p %{SOURCE100} .
 
 %build
 
@@ -158,6 +176,11 @@ networking and storage. The agreed contents of the 0.0.2 base.
 mkdir -p %{buildroot}%{_docdir}/%{name}
 
 %files
+%license LICENSE
 %dir %{_docdir}/%{name}
 
 %changelog
+* Sun Aug 16 2026 shizukiq <261241967+shizukiq@users.noreply.github.com> - 0.0.3-0
+- The agreed contents of the 0.0.3 base.
+- openSUSE-build-key is required: signature checking needs the key in the system.
+- kernel-firmware-all is recommended, and the installer decides by hardware.

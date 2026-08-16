@@ -17,7 +17,7 @@ Made by one person who wanted a machine that feels like somebody lives in it.
 
 ## Is it safe to use?
 
-Not yet. NekoAwai 0.0.2 partitions, installs and boots to a login prompt, and
+Not yet. NekoAwai 0.0.3 partitions, installs and boots to a login prompt, and
 that is the whole of what has been verified, in virtual machines. There is no
 signing key, no update channel of its own, and no installation on real
 hardware behind it. Keep it in a virtual machine.
@@ -25,7 +25,7 @@ hardware behind it. Keep it in a virtual machine.
 If you want a distribution to keep your data on, install openSUSE Tumbleweed.
 NekoAwai is built from it and gives you nothing it does not.
 
-## What 0.0.2 is
+## What 0.0.3 is
 
 A derivative, not an independent build. The binary base comes from openSUSE
 Tumbleweed and is still stamped `Vendor: openSUSE`: kernel, glibc, systemd,
@@ -68,6 +68,26 @@ them out.
 their own projects. Those archives are build artifacts and are not kept here,
 so both packages are skipped until you produce them; see
 `packages/nekoawai-install/README.md` and `packages/nekofetch/README.md`.
+
+### Signing
+
+`NEKO_SIGN_KEY` in `nekoawai.conf` names the key the distribution's own
+packages are signed with. It is empty, and that single emptiness is four
+separate holes: `nekoawai.repo` reads its packages with `gpgcheck=0`, the
+installer adds its local repository with `--no-gpgcheck`, the Live image is
+built with `rpm-check-signatures` off, and `nekoawai-keyring` is not built at
+all.
+
+Setting it closes all four without any other change: `build-packages.sh`
+signs the rpms, `make-repo.sh` signs the repository metadata, and
+`nekoawai-iso` sees the signature and builds the image with the check on. The
+private half is a question of custody rather than a build step, which is why
+nothing here creates one; `packages/nekoawai-keyring/README.md` has the
+commands.
+
+Everything reached over the network is reached over https, and no part of the
+build or the install imports a key from the same place as the packages that
+key is meant to vouch for.
 
 ## Layout
 

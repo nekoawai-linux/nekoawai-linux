@@ -63,3 +63,5 @@ fi
 %{_userunitdir}/nekowall-rotate.timer
 
 %changelog
+* Sun Aug 16 2026 shizukiq <261241967+shizukiq@users.noreply.github.com> - 0.5.0-0
+- nekowall 0.5.0.

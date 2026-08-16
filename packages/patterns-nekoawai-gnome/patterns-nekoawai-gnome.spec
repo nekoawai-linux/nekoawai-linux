@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.2}
+%{!?nekoawai_version:%global nekoawai_version 0.0.3}
 
 Name:           patterns-nekoawai-gnome
 Version:        %{nekoawai_version}
@@ -8,6 +8,7 @@ License:        GPL-3.0-or-later
 Group:          Metapackages
 URL:            https://nekoawai.moe
 BuildArch:      noarch
+Source100:      LICENSE
 
 Provides:       pattern() = nekoawai_gnome
 Provides:       pattern-visible()
@@ -51,7 +52,12 @@ Recommends:     gnome-disk-utility
 Recommends:     gnome-font-viewer
 Recommends:     gnome-logs
 Recommends:     gnome-maps
-Recommends:     gnome-software
+# gnome-software is deliberately absent. It reads AppStream metadata, and
+# NekoAwai publishes none: the store comes up empty, and what it does find it
+# offers under openSUSE's product name, including distribution upgrades this
+# system has no channel for. A software centre that lies about what the
+# machine is running is worse than no software centre. zypper is the answer
+# until there is metadata of our own to give it.
 Recommends:     gnome-tour
 Recommends:     simple-scan
 Recommends:     snapshot
@@ -62,12 +68,19 @@ A GNOME session with GDM. The session comes from the upstream gnome_basis
 pattern; the applications follow the Arch gnome group, which is what
 archinstall installs for the same profile.
 
+%prep
+cp -p %{SOURCE100} .
+
 %build
 
 %install
 mkdir -p %{buildroot}%{_docdir}/%{name}
 
 %files
+%license LICENSE
 %dir %{_docdir}/%{name}
 
 %changelog
+* Sun Aug 16 2026 shizukiq <261241967+shizukiq@users.noreply.github.com> - 0.0.3-0
+- The GNOME profile.
+- gnome-software dropped: NekoAwai publishes no AppStream metadata for it to read.

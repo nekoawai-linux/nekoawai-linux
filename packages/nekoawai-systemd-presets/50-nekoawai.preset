@@ -8,6 +8,10 @@ enable firewalld.service
 # Desktop profiles install exactly one display manager. On a minimal system
 # the alias does not exist, so this rule has no effect.
 enable display-manager.service
+# Same shape: bluez comes with the desktop patterns and with nothing else, so
+# a console system never sees this line. A daemon installed and left disabled
+# is a keyboard that does not pair and no way to find out why.
+enable bluetooth.service
 # Enabling dbus-broker only creates the dbus.service alias, but without it
 # dbus.socket has no service to activate: the bus never comes up and logind
 # restarts forever.

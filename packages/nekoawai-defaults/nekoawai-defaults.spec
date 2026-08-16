@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.2}
+%{!?nekoawai_version:%global nekoawai_version 0.0.3}
 
 Name:           nekoawai-defaults
 Version:        %{nekoawai_version}
@@ -14,6 +14,7 @@ Source1:        zram-generator.conf
 Source2:        getty.conf
 Source3:        console-colours.service
 Source4:        vtrgb
+Source100:      LICENSE
 
 Requires:       systemd
 Requires:       zram-generator
@@ -30,6 +31,9 @@ sixteen the terminal in a session is given: a machine without a desktop is
 the machine this distribution is written for, and it should not have to look
 like a machine nobody chose.
 
+%prep
+cp -p %{SOURCE100} .
+
 %build
 
 %install
@@ -44,6 +48,7 @@ install -Dpm 0644 %{SOURCE3} \
 install -Dpm 0644 %{SOURCE4} %{buildroot}%{_datadir}/nekoawai/vtrgb
 
 %files
+%license LICENSE
 %dir %{_prefix}/lib/systemd/journald.conf.d
 %{_prefix}/lib/systemd/journald.conf.d/50-nekoawai.conf
 %{_prefix}/lib/systemd/zram-generator.conf
@@ -54,3 +59,5 @@ install -Dpm 0644 %{SOURCE4} %{buildroot}%{_datadir}/nekoawai/vtrgb
 %{_datadir}/nekoawai/vtrgb
 
 %changelog
+* Sun Aug 16 2026 shizukiq <261241967+shizukiq@users.noreply.github.com> - 0.0.3-0
+- Journal, zram, getty and the sixteen colours of the text console.

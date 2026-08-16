@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.2}
+%{!?nekoawai_version:%global nekoawai_version 0.0.3}
 
 Name:           patterns-nekoawai-niri
 Version:        %{nekoawai_version}
@@ -8,6 +8,7 @@ License:        GPL-3.0-or-later
 Group:          Metapackages
 URL:            https://nekoawai.moe
 BuildArch:      noarch
+Source100:      LICENSE
 
 Provides:       pattern() = nekoawai_niri
 Provides:       pattern-visible()
@@ -42,13 +43,21 @@ Requires:       waybar
 Requires:       swaybg
 Requires:       swayidle
 Requires:       swaylock
+# On Wayland the clipboard is a program. Without it nothing copied in a
+# terminal reaches anything else on the screen.
+Requires:       wl-clipboard
 
 Recommends:     NetworkManager-applet
+# Pairing a device without a settings application of its own.
+Recommends:     blueman
 
 %description
 A usable Niri session with LightDM and the portal backends selected by
 Niri's upstream portal configuration. The tool selection follows the
 archinstall Niri profile.
+
+%prep
+cp -p %{SOURCE100} .
 
 %build
 
@@ -56,6 +65,10 @@ archinstall Niri profile.
 mkdir -p %{buildroot}%{_docdir}/%{name}
 
 %files
+%license LICENSE
 %dir %{_docdir}/%{name}
 
 %changelog
+* Sun Aug 16 2026 shizukiq <261241967+shizukiq@users.noreply.github.com> - 0.0.3-0
+- The Niri profile.
+- wl-clipboard added: on Wayland the clipboard is a program, not the compositor.

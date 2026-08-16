@@ -5,6 +5,12 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # The base is a rolling distribution: the patterns name around eighty
+  # packages that belong to somebody else, and upstream renames and drops them
+  # without telling anyone. Nightly is how that is found out on the day it
+  # happens rather than the next time somebody installs.
+  schedule:
+    - cron: '17 4 * * *'
 
 permissions:
   contents: read
@@ -15,7 +21,7 @@ concurrency:
 
 jobs:
   check:
-    name: shell syntax, package layout, specs
+    name: shell, package layout, specs
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -23,6 +29,14 @@ jobs:
 
       - name: Shell syntax
         run: bash -n scripts/*.sh
+
+      - name: Shell analysis
+        # SC1090 and SC1091 are the sourced files: nekoawai.conf and the
+        # installer are read at run time and are not shellcheck's to resolve.
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y shellcheck
+          shellcheck --shell=bash --exclude=SC1090,SC1091 scripts/*.sh
 
       - name: Every package directory holds the spec named after it
         run: |
@@ -38,7 +52,6 @@ jobs:
 
       - name: Specs parse
         run: |
-          sudo apt-get update
           sudo apt-get install --no-install-recommends -y rpm
           . ./nekoawai.conf
           for spec in packages/*/*.spec; do
@@ -47,9 +60,87 @@ jobs:
               --define "dist $NEKO_DISTTAG" > /dev/null
           done
 
+      - name: Every package carries the licence it is under
+        run: |
+          status=0
+          for spec in packages/*/*.spec; do
+            grep -q '^%license' "$spec" || { echo "no %license in $spec" >&2; status=1; }
+          done
+          exit "$status"
+
+      - name: Every package says what changed
+        run: |
+          status=0
+          for spec in packages/*/*.spec; do
+            # A %changelog with nothing under it leaves rpm -q --changelog
+            # silent on a distribution's own packages.
+            sed -n '/^%changelog/,$p' "$spec" | grep -q '^\*' ||
+              { echo "empty %changelog in $spec" >&2; status=1; }
+          done
+          exit "$status"
+
+      - name: Nothing reaches upstream over plain http
+        # A signature is worth the key it is checked against, and over http
+        # the mirror redirect, the metadata and the key all come from whoever
+        # is carrying the packets.
+        run: |
+          if grep -rn 'http://download\.opensuse\.org' nekoawai.conf packages/; then
+            echo "upstream must be reached over https" >&2
+            exit 1
+          fi
+
       - name: The installer never reaches the target repository
         run: |
           if grep -rn 'nekoawai-install' packages/patterns-nekoawai-base/; then
             echo "the installer must stay out of the base pattern" >&2
             exit 1
           fi
+
+  resolve:
+    name: profiles still resolve against Tumbleweed
+    runs-on: ubuntu-24.04
+    container: opensuse/tumbleweed:latest
+    timeout-minutes: 45
+    steps:
+      # Before the checkout, which needs tar and git inside the container.
+      - name: Build tools
+        run: |
+          zypper --non-interactive --gpg-auto-import-keys refresh
+          zypper --non-interactive install --no-recommends \
+            git tar gzip make rpm-build createrepo_c
+
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Build the packages and the repository
+        run: make repo
+
+      - name: Every profile resolves
+        # The same question the installer asks before it erases anything, in
+        # the same shape: --no-recommends for the console system, and the
+        # recommendations left on for a desktop. Nothing is downloaded and
+        # nothing is installed; what is being checked is that every name the
+        # patterns hold still exists upstream.
+        run: |
+          . ./nekoawai.conf
+          target=$(mktemp -d)
+          zypper --root "$target" --non-interactive --no-gpg-checks \
+            addrepo --refresh "$NEKO_UPSTREAM_OSS" upstream
+          zypper --root "$target" --non-interactive --no-gpg-checks \
+            addrepo --priority 90 "dir:$PWD/out/repo" nekoawai
+          zypper --root "$target" --non-interactive --no-gpg-checks refresh
+
+          status=0
+          for profile in base xfce gnome plasma niri hyprland; do
+            pattern=patterns-nekoawai-$profile
+            recommends=
+            [ "$profile" != base ] || recommends=--no-recommends
+            if zypper --root "$target" --non-interactive --no-gpg-checks \
+              install --dry-run $recommends "$pattern" > solve.log 2>&1; then
+              echo "ok   $pattern"
+            else
+              echo "FAIL $pattern" >&2
+              tail -n 30 solve.log >&2
+              status=1
+            fi
+          done
+          exit "$status"

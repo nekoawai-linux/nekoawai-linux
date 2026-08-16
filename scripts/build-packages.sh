@@ -22,18 +22,23 @@ for dir in "$root"/packages/*/; do
 
 	sources=$(awk -F: '/^Source[0-9]*:/ { gsub(/^[ \t]+/, "", $2); print $2 }' "$spec")
 
+	# A source sits next to its spec, except LICENSE: there is one copy of it
+	# at the top of the repository and every package ships that same copy, so
+	# that a package taken on its own carries the terms it is under.
 	missing=
 	for source in $sources; do
-		[ -f "$dir$source" ] || missing=$source
+		if [ -f "$dir$source" ]; then
+			cp "$dir$source" "$topdir/SOURCES/"
+		elif [ -f "$root/$source" ]; then
+			cp "$root/$source" "$topdir/SOURCES/"
+		else
+			missing=$source
+		fi
 	done
 	if [ -n "$missing" ]; then
 		echo "skipped $name: $missing is missing (see ${dir}README.md)"
 		continue
 	fi
-
-	for source in $sources; do
-		cp "$dir$source" "$topdir/SOURCES/"
-	done
 
 	rpmbuild -ba "$spec" \
 		--define "_topdir $topdir" \
@@ -43,3 +48,21 @@ for dir in "$root"/packages/*/; do
 		--define "distribution $NEKO_NAME $NEKO_VERSION" \
 		--target "$NEKO_ARCH"
 done
+
+# Signing is the difference between a package that says where it came from
+# and one that only claims to. Until NEKO_SIGN_KEY names a key the packages
+# go out unsigned, and everything downstream -- nekoawai.repo, the installer's
+# local repository, rpm-check-signatures in the image -- has to be told to
+# accept that. Setting the key is what closes all four at once.
+if [ -n "${NEKO_SIGN_KEY:-}" ]; then
+	command -v rpmsign >/dev/null || {
+		echo "NEKO_SIGN_KEY is set but rpmsign is missing: zypper in rpm-sign" >&2
+		exit 1
+	}
+	mapfile -t -d '' built < <(find "$topdir/RPMS" "$topdir/SRPMS" -name '*.rpm' -print0)
+	[ "${#built[@]}" -gt 0 ] || { echo "nothing was built, nothing to sign" >&2; exit 1; }
+	rpmsign --addsign --define "_gpg_name $NEKO_SIGN_KEY" "${built[@]}"
+	echo "signed ${#built[@]} packages with $NEKO_SIGN_KEY"
+else
+	echo "NEKO_SIGN_KEY is empty: packages are unsigned, see packages/nekoawai-keyring/README.md"
+fi

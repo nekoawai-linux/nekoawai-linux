@@ -2,7 +2,10 @@
 name=NekoAwai
 enabled=1
 autorefresh=0
-# No signing key exists yet, see nekoawai-keyring.
+# The one repository still read unchecked, and the only one whose contents
+# never crossed a network: the installer copies these rpms off the medium it
+# booted from. It goes to gpgcheck=1 the day NEKO_SIGN_KEY is set and
+# nekoawai-keyring ships the public half; see nekoawai-keyring.
 gpgcheck=0
 # plaindir reads the directory as-is, so an empty one is still a valid
 # repository rather than an error.

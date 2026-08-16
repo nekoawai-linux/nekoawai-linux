@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.2}
+%{!?nekoawai_version:%global nekoawai_version 0.0.3}
 
 Name:           nekoawai-release
 Version:        %{nekoawai_version}
@@ -7,6 +7,7 @@ Summary:        NekoAwai release identity
 License:        GPL-3.0-or-later
 Group:          System/Fhs
 URL:            https://nekoawai.moe
+Source100:      LICENSE
 
 # The hooks zypper and third-party software identify the distribution by.
 Provides:       distribution-release = %{version}-%{release}
@@ -23,12 +24,15 @@ Conflicts:      openSUSE-release
 The files that decide what the system calls itself: os-release, issue and
 the product record for libzypp.
 
+%prep
+cp -p %{SOURCE100} .
+
 %build
 
 %install
 mkdir -p %{buildroot}%{_prefix}/lib %{buildroot}%{_sysconfdir}/products.d
 
-# ID_LIKE: the binary base of 0.0.2 comes from openSUSE Tumbleweed and
+# ID_LIKE: the binary base of 0.0.3 comes from openSUSE Tumbleweed and
 # third-party scripts should behave accordingly. Goes away together with the
 # move to in-house builds.
 cat > %{buildroot}%{_prefix}/lib/os-release <<'EOF'
@@ -41,7 +45,12 @@ PRETTY_NAME="NekoAwai %{version}"
 CPE_NAME="cpe:/o:nekoawai:nekoawai:%{version}"
 ANSI_COLOR="0;35"
 HOME_URL="https://nekoawai.moe"
-BUG_REPORT_URL="https://nekoawai.moe/bugs"
+# Where a report actually arrives. The address a system carries in os-release
+# is the one a stranger reads off a broken machine, and it has to be a place
+# that exists rather than a page that ought to.
+BUG_REPORT_URL="https://github.com/nekoawai-linux/nekoawai-linux/issues"
+DOCUMENTATION_URL="https://github.com/nekoawai-linux/nekoawai-linux"
+SUPPORT_URL="https://github.com/nekoawai-linux"
 EOF
 
 ln -s ..%{_prefix}/lib/os-release %{buildroot}%{_sysconfdir}/os-release
@@ -89,6 +98,7 @@ EOF
 ln -s nekoawai.prod %{buildroot}%{_sysconfdir}/products.d/baseproduct
 
 %files
+%license LICENSE
 %{_prefix}/lib/os-release
 %config %{_sysconfdir}/os-release
 %config(noreplace) %{_sysconfdir}/issue
@@ -98,3 +108,6 @@ ln -s nekoawai.prod %{buildroot}%{_sysconfdir}/products.d/baseproduct
 %{_sysconfdir}/products.d/baseproduct
 
 %changelog
+* Sun Aug 16 2026 shizukiq <261241967+shizukiq@users.noreply.github.com> - 0.0.3-0
+- NekoAwai 0.0.3: os-release, issue and the product record for libzypp.
+- BUG_REPORT_URL now points at the issue tracker instead of a page that does not exist.

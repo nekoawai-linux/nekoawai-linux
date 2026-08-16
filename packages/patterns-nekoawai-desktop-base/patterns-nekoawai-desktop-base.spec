@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.2}
+%{!?nekoawai_version:%global nekoawai_version 0.0.3}
 
 Name:           patterns-nekoawai-desktop-base
 Version:        %{nekoawai_version}
@@ -8,6 +8,7 @@ License:        GPL-3.0-or-later
 Group:          Metapackages
 URL:            https://nekoawai.moe
 BuildArch:      noarch
+Source100:      LICENSE
 
 Provides:       pattern() = nekoawai_desktop_base
 Provides:       pattern-category() = Graphical%%20Environments
@@ -36,6 +37,13 @@ Requires:       shared-mime-info
 # gvfs a deleted file is a deleted file, with no trash to take it back from.
 Requires:       gvfs
 Recommends:     gvfs-backends
+
+# Bluetooth belongs to every desktop, not to the two that happen to drag it
+# in: GNOME and Plasma get bluez through their upstream patterns, and Xfce,
+# Niri and Hyprland were left without a daemon at all -- a laptop with no
+# mouse and no keyboard and no way to say so. The service is shipped, not
+# started: 50-nekoawai.preset decides that.
+Requires:       bluez
 
 # What archinstall puts on every desktop regardless of the profile. The base
 # already carries nano, wget and the ssh client.
@@ -70,12 +78,19 @@ Graphics, audio, desktop integration and fonts shared by every NekoAwai
 desktop profile. Compositors, display managers and portal backends belong to
 the selected profile.
 
+%prep
+cp -p %{SOURCE100} .
+
 %build
 
 %install
 mkdir -p %{buildroot}%{_docdir}/%{name}
 
 %files
+%license LICENSE
 %dir %{_docdir}/%{name}
 
 %changelog
+* Sun Aug 16 2026 shizukiq <261241967+shizukiq@users.noreply.github.com> - 0.0.3-0
+- Graphics, audio, portals and fonts shared by every desktop profile.
+- bluez added: three of the five profiles had no Bluetooth daemon at all.

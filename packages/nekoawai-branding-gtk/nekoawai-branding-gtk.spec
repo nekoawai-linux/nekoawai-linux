@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.2}
+%{!?nekoawai_version:%global nekoawai_version 0.0.3}
 
 Name:           nekoawai-branding-gtk
 Version:        %{nekoawai_version}
@@ -12,6 +12,7 @@ BuildArch:      noarch
 Source0:        settings.ini
 Source1:        settings-gtk4.ini
 Source2:        30_nekoawai-interface.gschema.override
+Source100:      LICENSE
 
 # Adwaita-dark is a separate package from the toolkit; without it GTK falls
 # back to a theme from before the century turned, and quietly.
@@ -34,6 +35,9 @@ Note that openSUSE ties its own branding to the exact version of the toolkit
 it was built against. This one does not: it holds a decision, not a copy of
 the toolkit's defaults, and there is nothing in it to go stale on an update.
 
+%prep
+cp -p %{SOURCE100} .
+
 %build
 
 %install
@@ -43,6 +47,7 @@ install -Dpm 0644 %{SOURCE2} \
 	%{buildroot}%{_datadir}/glib-2.0/schemas/30_nekoawai-interface.gschema.override
 
 %files
+%license LICENSE
 %dir %{_sysconfdir}/gtk-3.0
 %config(noreplace) %{_sysconfdir}/gtk-3.0/settings.ini
 %dir %{_datadir}/gtk-4.0
@@ -50,3 +55,5 @@ install -Dpm 0644 %{SOURCE2} \
 %{_datadir}/glib-2.0/schemas/30_nekoawai-interface.gschema.override
 
 %changelog
+* Sun Aug 16 2026 shizukiq <261241967+shizukiq@users.noreply.github.com> - 0.0.3-0
+- The dark Adwaita decision, held in the gtk3 and gtk4 branding slots.

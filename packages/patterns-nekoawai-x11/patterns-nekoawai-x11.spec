@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.2}
+%{!?nekoawai_version:%global nekoawai_version 0.0.3}
 
 Name:           patterns-nekoawai-x11
 Version:        %{nekoawai_version}
@@ -8,6 +8,7 @@ License:        GPL-3.0-or-later
 Group:          Metapackages
 URL:            https://nekoawai.moe
 BuildArch:      noarch
+Source100:      LICENSE
 
 Provides:       pattern() = nekoawai_x11
 Provides:       pattern-category() = Graphical%%20Environments
@@ -36,12 +37,18 @@ The Xorg display server, its input driver and the fonts it needs to start.
 Required by profiles whose session or login greeter runs on X11 rather than
 Wayland.
 
+%prep
+cp -p %{SOURCE100} .
+
 %build
 
 %install
 mkdir -p %{buildroot}%{_docdir}/%{name}
 
 %files
+%license LICENSE
 %dir %{_docdir}/%{name}
 
 %changelog
+* Sun Aug 16 2026 shizukiq <261241967+shizukiq@users.noreply.github.com> - 0.0.3-0
+- The Xorg server, for the profiles whose greeter needs one.

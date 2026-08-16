@@ -82,6 +82,9 @@ installer_answers() {
 # file writes on the ESP.
 export NEKO_LOCAL_REPO=$root/out/repo
 export NEKO_DETECT_GPU=no
+# The single quotes are the point: the body runs in the new namespace, and
+# "$1" is the installer path passed to it below, not one expanded here.
+# shellcheck disable=SC2016
 installer_answers | unshare --mount --propagation private -- bash -c '
 	mount -t tmpfs tmpfs /sys/firmware/efi/efivars 2>/dev/null || :
 	exec "$1" --text' _ "$installer"

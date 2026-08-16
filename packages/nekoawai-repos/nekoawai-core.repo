@@ -2,7 +2,10 @@
 name=NekoAwai Core
 enabled=1
 autorefresh=1
+# Both the packages and the metadata that lists them. Leaving the metadata
+# unchecked would still refuse an unsigned package, but it would accept an
+# older signed one: a repomd.xml nobody verified can point at last month's
+# vulnerable build and libzypp has no way to know it was not offered today.
 gpgcheck=1
-repo_gpgcheck=0
 priority=99
-baseurl=http://download.opensuse.org/tumbleweed/repo/oss/
+baseurl=https://download.opensuse.org/tumbleweed/repo/oss/

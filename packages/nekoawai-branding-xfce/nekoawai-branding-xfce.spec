@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.2}
+%{!?nekoawai_version:%global nekoawai_version 0.0.3}
 
 Name:           nekoawai-branding-xfce
 Version:        %{nekoawai_version}
@@ -12,6 +12,7 @@ BuildArch:      noarch
 Source0:        xsettings.xml
 Source1:        terminalrc
 Source2:        nekoawai.theme
+Source100:      LICENSE
 
 Requires:       nekoawai-branding-gtk
 
@@ -34,6 +35,9 @@ nothing can take it away and the user can. The backdrop stays with nekowall,
 which sets one at the first login and is the answer to that question
 everywhere else as well.
 
+%prep
+cp -p %{SOURCE100} .
+
 %build
 
 %install
@@ -45,6 +49,7 @@ install -Dpm 0644 %{SOURCE2} \
 	%{buildroot}%{_datadir}/xfce4/terminal/colorschemes/nekoawai.theme
 
 %files
+%license LICENSE
 %dir %{_sysconfdir}/skel/.config
 %dir %{_sysconfdir}/skel/.config/xfce4
 %dir %{_sysconfdir}/skel/.config/xfce4/xfconf
@@ -59,3 +64,5 @@ install -Dpm 0644 %{SOURCE2} \
 %{_datadir}/xfce4/terminal/colorschemes/nekoawai.theme
 
 %changelog
+* Sun Aug 16 2026 shizukiq <261241967+shizukiq@users.noreply.github.com> - 0.0.3-0
+- The Xfce theme and terminal palette, laid down in /etc/skel.

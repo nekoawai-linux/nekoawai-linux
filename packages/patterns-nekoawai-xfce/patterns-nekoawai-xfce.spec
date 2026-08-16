@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.2}
+%{!?nekoawai_version:%global nekoawai_version 0.0.3}
 
 Name:           patterns-nekoawai-xfce
 Version:        %{nekoawai_version}
@@ -8,6 +8,7 @@ License:        GPL-3.0-or-later
 Group:          Metapackages
 URL:            https://nekoawai.moe
 BuildArch:      noarch
+Source100:      LICENSE
 
 Provides:       pattern() = nekoawai_xfce
 Provides:       pattern-visible()
@@ -59,50 +60,39 @@ Requires:       lightdm-gtk-greeter-branding-upstream
 Requires:       nekoawai-branding-lightdm
 Requires:       xdg-desktop-portal-gtk
 
-# The xfce4-goodies group. Weak dependencies rather than hard ones: a plugin
-# that leaves the distribution must not take the desktop with it.
+# Applications the desktop is missing without, and the four panel plugins
+# that answer a question the panel raises by existing: what is playing, what
+# was copied, what is running, and where is everything else. Weak
+# dependencies rather than hard ones: one that leaves the distribution must
+# not take the desktop with it.
+#
+# The xfce4-goodies group entire used to be here, and it is the one place in
+# the distribution where a list was copied rather than chosen: a weather
+# plugin, a mail watcher, an MPD client and a pair of eyes that follow the
+# cursor, on a system whose first rule is that colour marks the one thing
+# asking to be pressed. Anyone who wants them types five words at zypper.
 Recommends:     mousepad
 Recommends:     parole
 Recommends:     ristretto
-Recommends:     xfburn
 Recommends:     thunar-archive-plugin
-Recommends:     thunar-media-tags-plugin
 Recommends:     xfce4-screensaver
 Recommends:     xfce4-screenshooter
 Recommends:     xfce4-taskmanager
 Recommends:     xfce4-pulseaudio-plugin
 Recommends:     xfce4-whiskermenu-plugin
 Recommends:     xfce4-clipman-plugin
-Recommends:     xfce4-dict
-Recommends:     xfce4-notes-plugin
-Recommends:     xfce4-battery-plugin
-Recommends:     xfce4-cpufreq-plugin
-Recommends:     xfce4-cpugraph-plugin
-Recommends:     xfce4-diskperf-plugin
-Recommends:     xfce4-eyes-plugin
-Recommends:     xfce4-fsguard-plugin
-Recommends:     xfce4-genmon-plugin
-Recommends:     xfce4-mailwatch-plugin
-Recommends:     xfce4-mount-plugin
-Recommends:     xfce4-mpc-plugin
-Recommends:     xfce4-netload-plugin
-Recommends:     xfce4-places-plugin
-Recommends:     xfce4-sensors-plugin
-Recommends:     xfce4-smartbookmark-plugin
-Recommends:     xfce4-systemload-plugin
-Recommends:     xfce4-time-out-plugin
-Recommends:     xfce4-timer-plugin
-Recommends:     xfce4-verve-plugin
-Recommends:     xfce4-wavelan-plugin
-Recommends:     xfce4-weather-plugin
-Recommends:     xfce4-xkb-plugin
 Recommends:     NetworkManager-applet
+# Pairing a device: Xfce has no Bluetooth settings of its own.
+Recommends:     blueman
 
 %description
 An Xfce session with LightDM, on Xorg. The session packages are listed
-directly to avoid pulling the upstream openSUSE base and X11 patterns; the
-list follows the Arch xfce4 and xfce4-goodies groups, which is what
-archinstall installs for the same profile.
+directly to avoid pulling the upstream openSUSE base and X11 patterns. The
+session itself is the Arch xfce4 group; what sits on top of it was chosen
+here rather than taken whole from xfce4-goodies.
+
+%prep
+cp -p %{SOURCE100} .
 
 %build
 
@@ -110,6 +100,10 @@ archinstall installs for the same profile.
 mkdir -p %{buildroot}%{_docdir}/%{name}
 
 %files
+%license LICENSE
 %dir %{_docdir}/%{name}
 
 %changelog
+* Sun Aug 16 2026 shizukiq <261241967+shizukiq@users.noreply.github.com> - 0.0.3-0
+- The Xfce profile.
+- The xfce4-goodies group is no longer taken whole: the panel plugins are chosen.

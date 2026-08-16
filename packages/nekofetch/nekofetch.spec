@@ -31,3 +31,5 @@ make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
 %{_bindir}/nekofetch
 
 %changelog
+* Sun Aug 16 2026 shizukiq <261241967+shizukiq@users.noreply.github.com> - 0.1.0-0
+- nekofetch 0.1.0.

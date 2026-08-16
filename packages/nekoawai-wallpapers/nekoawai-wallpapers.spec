@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.2}
+%{!?nekoawai_version:%global nekoawai_version 0.0.3}
 
 Name:           nekoawai-wallpapers
 Version:        %{nekoawai_version}
@@ -13,6 +13,7 @@ Source0:        make-wallpaper.py
 Source1:        metadata.json
 Source2:        nekoawai.xml
 Source3:        30_nekoawai-wallpaper.gschema.override
+Source100:      LICENSE
 
 # The picture is drawn, not shipped: see make-wallpaper.py.
 BuildRequires:  python3-base
@@ -33,6 +34,9 @@ profile unresolvable today and would break on any openSUSE bump tomorrow.
 The picture is named directly by everything of ours that shows it, which
 needs no slot at all.
 
+%prep
+cp -p %{SOURCE100} .
+
 %build
 
 %install
@@ -52,6 +56,7 @@ install -Dpm 0644 %{SOURCE3} \
 	%{buildroot}%{_datadir}/glib-2.0/schemas/30_nekoawai-wallpaper.gschema.override
 
 %files
+%license LICENSE
 %dir %{_datadir}/wallpapers
 %dir %{_datadir}/wallpapers/NekoAwai
 %dir %{_datadir}/wallpapers/NekoAwai/contents
@@ -64,3 +69,5 @@ install -Dpm 0644 %{SOURCE3} \
 %{_datadir}/glib-2.0/schemas/30_nekoawai-wallpaper.gschema.override
 
 %changelog
+* Sun Aug 16 2026 shizukiq <261241967+shizukiq@users.noreply.github.com> - 0.0.3-0
+- The default background, drawn from the palette rather than shipped as art.

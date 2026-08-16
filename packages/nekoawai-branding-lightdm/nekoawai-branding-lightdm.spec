@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.2}
+%{!?nekoawai_version:%global nekoawai_version 0.0.3}
 
 Name:           nekoawai-branding-lightdm
 Version:        %{nekoawai_version}
@@ -10,6 +10,7 @@ URL:            https://nekoawai.moe
 BuildArch:      noarch
 
 Source0:        50-nekoawai.conf
+Source100:      LICENSE
 
 # The drop-in directory arrived in 2.0.1. Naming the version is also what
 # keeps this package out of the branding slot: the greeter asks for
@@ -30,6 +31,9 @@ background, dark Adwaita over it, and nothing else added to it.
 A drop-in beside the greeter's own configuration rather than a replacement
 of it, so that an update to the greeter cannot arrive with a conflict.
 
+%prep
+cp -p %{SOURCE100} .
+
 %build
 
 %install
@@ -37,8 +41,11 @@ install -Dpm 0644 %{SOURCE0} \
 	%{buildroot}%{_sysconfdir}/lightdm/lightdm-gtk-greeter.conf.d/50-nekoawai.conf
 
 %files
+%license LICENSE
 %dir %{_sysconfdir}/lightdm
 %dir %{_sysconfdir}/lightdm/lightdm-gtk-greeter.conf.d
 %config(noreplace) %{_sysconfdir}/lightdm/lightdm-gtk-greeter.conf.d/50-nekoawai.conf
 
 %changelog
+* Sun Aug 16 2026 shizukiq <261241967+shizukiq@users.noreply.github.com> - 0.0.3-0
+- The greeter in the NekoAwai palette, as a drop-in beside the upstream branding.

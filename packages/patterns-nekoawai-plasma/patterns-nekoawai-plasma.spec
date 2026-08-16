@@ -1,4 +1,4 @@
-%{!?nekoawai_version:%global nekoawai_version 0.0.2}
+%{!?nekoawai_version:%global nekoawai_version 0.0.3}
 
 Name:           patterns-nekoawai-plasma
 Version:        %{nekoawai_version}
@@ -8,6 +8,7 @@ License:        GPL-3.0-or-later
 Group:          Metapackages
 URL:            https://nekoawai.moe
 BuildArch:      noarch
+Source100:      LICENSE
 
 Provides:       pattern() = nekoawai_plasma
 Provides:       pattern-visible()
@@ -37,12 +38,18 @@ A lean KDE Plasma Wayland session with SDDM and the KDE portal backend. The
 workspace comes from the upstream kde_plasma pattern; the applications match
 what archinstall installs for the same profile.
 
+%prep
+cp -p %{SOURCE100} .
+
 %build
 
 %install
 mkdir -p %{buildroot}%{_docdir}/%{name}
 
 %files
+%license LICENSE
 %dir %{_docdir}/%{name}
 
 %changelog
+* Sun Aug 16 2026 shizukiq <261241967+shizukiq@users.noreply.github.com> - 0.0.3-0
+- The KDE Plasma profile.
