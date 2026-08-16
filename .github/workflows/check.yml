@@ -33,10 +33,12 @@ jobs:
       - name: Shell analysis
         # SC1090 and SC1091 are the sourced files: nekoawai.conf and the
         # installer are read at run time and are not shellcheck's to resolve.
+        # Warnings and above only: the info level is style advice, and
+        # runners do not all carry the same shellcheck.
         run: |
           sudo apt-get update
           sudo apt-get install --no-install-recommends -y shellcheck
-          shellcheck --shell=bash --exclude=SC1090,SC1091 scripts/*.sh
+          shellcheck --shell=bash --severity=warning --exclude=SC1090,SC1091 scripts/*.sh
 
       - name: Every package directory holds the spec named after it
         run: |
@@ -106,8 +108,10 @@ jobs:
       - name: Build tools
         run: |
           zypper --non-interactive --gpg-auto-import-keys refresh
+          # python3-base is a BuildRequires of nekoawai-wallpapers: the
+          # background is drawn at build time rather than shipped as art.
           zypper --non-interactive install --no-recommends \
-            git tar gzip make rpm-build createrepo_c
+            git tar gzip make rpm-build createrepo_c python3-base
 
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
